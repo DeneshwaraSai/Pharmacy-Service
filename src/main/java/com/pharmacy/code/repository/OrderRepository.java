@@ -11,4 +11,6 @@ public interface OrderRepository extends JpaRepository<OrderInfo, String>{
 	public OrderInfo findByOrderNumber(String orderNumber);
 	
 	public OrderInfo save(OrderInfo orderInfo);
+
+	public OrderInfo findByOrderNumberAndUhid(String orderNumber, Integer uhid);
 }

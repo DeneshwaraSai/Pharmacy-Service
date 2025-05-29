@@ -1,10 +1,8 @@
 package com.pharmacy.code.controller;
 
+import com.pharmacy.code.dto.PharmaContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.pharmacy.code.dto.OrderRequest;
 import com.pharmacy.code.dto.OrderResponse;
@@ -26,5 +24,11 @@ public class OrderInfoController {
 		public OrderResponse save(@RequestBody OrderRequest orderRequest) {
 		// TODO Auto-generated method stub
 		return orderService.save(orderRequest);
+	}
+
+	@GetMapping("/order/pharmaContext")
+	public PharmaContext createPharmaContext(@RequestParam(name = "orderNumber") String orderNumber,
+											 @RequestParam(name = "uhid") Integer uhid) {
+		return orderService.createPharmaContext(orderNumber, uhid);
 	}
 }

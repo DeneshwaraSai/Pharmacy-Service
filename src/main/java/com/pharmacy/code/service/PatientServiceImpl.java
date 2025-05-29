@@ -2,6 +2,7 @@ package com.pharmacy.code.service;
 
 import java.util.List;
 
+import com.pharmacy.code.dto.PatientSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -69,10 +70,24 @@ public class PatientServiceImpl implements PatientService {
 		List<PatientHeaderContext> context = entityManager.createNamedQuery("PatientService.findPatientByUhid")
 					.setParameter("uhid", uhid)
 					.getResultList();
+
+
 		System.out.println(context.toString());
 		if (!CollectionUtils.isEmpty(context)) {
 			return context.get(0);
 		}
 		return null;
+	}
+
+	@Override
+	public List<PatientSearchDto> advancedSearch(PatientSearch patientSearch) {
+
+	List<PatientSearchDto> dtoList = entityManager.createNamedQuery("PatientSearch.findAllNamesBySearchObject")
+				.setParameter("firstName", patientSearch.getFirstName())
+				.setParameter("lastName", patientSearch.getLastName())
+//				.setParameter("phoneNumber", patientSearch.getPhoneNumber())
+				.getResultList();
+	System.out.println(dtoList.toString());
+		return dtoList;
 	}
 }

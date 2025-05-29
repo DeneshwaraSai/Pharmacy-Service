@@ -3,6 +3,7 @@ package com.pharmacy.code.controller;
 
 import java.util.List;
 
+import com.pharmacy.code.dto.PatientSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,6 +52,11 @@ public class PatientController {
 	@GetMapping(path="/patient/search/{name}")
 	public List<PatientSearchDto> searchpatients(@PathVariable(name = "name", required=true) String name) {
 		return patientService.searchpatients(name);
+	}
+
+	@PostMapping(path="/patient/advancedSearch")
+	public List<PatientSearchDto> advancedSearch(@RequestBody PatientSearch patientSearch) {
+		return patientService.advancedSearch(patientSearch);
 	}
 
 	@GetMapping(path = "/patient/uhid/{uhid}")

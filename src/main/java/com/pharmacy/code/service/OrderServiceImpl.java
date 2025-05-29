@@ -2,6 +2,8 @@ package com.pharmacy.code.service;
 
 import java.util.*;
 
+import com.pharmacy.code.dto.PharmaContext;
+import jakarta.persistence.EntityManager;
 import org.hibernate.query.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -26,19 +28,21 @@ import jakarta.transaction.Transactional.TxType;
 @Service
 public class OrderServiceImpl implements OrderService {
 
-	private OrderRepository orderRepository;	
+	private OrderRepository orderRepository;
 
 	private BillReceivableService billReceivableService;
 
 	private CashReceiptService cashReceiptService;
 
+	private EntityManager entityManager;
+
 	@Autowired
-	public OrderServiceImpl(OrderRepository orderRepository, 
-			BillReceivableService billReceivableService, 
-			CashReceiptService cashReceiptService) {
+	public OrderServiceImpl(OrderRepository orderRepository, BillReceivableService billReceivableService,
+			CashReceiptService cashReceiptService, EntityManager entityManager) {
 		this.orderRepository = orderRepository;
 		this.billReceivableService = billReceivableService;
 		this.cashReceiptService = cashReceiptService;
+		this.entityManager = entityManager;
 	}
 
 	@Override
@@ -94,6 +98,20 @@ public class OrderServiceImpl implements OrderService {
 	public OrderInfo update(OrderInfo orderInfo) {
 		// TODO Auto-generated method stub
 		return orderRepository.save(orderInfo);
+	}
+
+	@Transactional
+	@Override
+	public PharmaContext createPharmaContext(String orderNumber, Integer uhid) {
+		List<PharmaContext> pharmaContext = entityManager.createNamedQuery("PatientSearch.findPharmacyContext")
+				.setParameter("orderNumber", orderNumber)
+				.setParameter("uhid", uhid)
+				.getResultList();
+		if (!Objects.isNull(pharmaContext) && pharmaContext.size() > 0) {
+			return pharmaContext.get(0);
+		}
+		return null;
+
 	}
 
 	public List<BillReceivableDetails> createBillReceivableDetails(List<OrderDetails> orderDetailsList, String transactionId) {
@@ -157,6 +175,7 @@ public class OrderServiceImpl implements OrderService {
 		OrderInfo orderInfo = orderRequest.getOrderInfo();
 		orderInfo.setUhid(orderRequest.getUhid());
 		orderInfo.setOrderNumber(orderNumber);
+		orderInfo.setStatus(orderRequest.getOrderStatus());
 
 		orderInfo.setOrderDetails(orderRequest.getOrderItems());
 
