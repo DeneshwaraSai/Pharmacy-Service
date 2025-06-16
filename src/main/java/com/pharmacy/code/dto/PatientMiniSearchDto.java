@@ -1,22 +1,16 @@
 package com.pharmacy.code.dto;
 
-public class PatientSearch {
-    private String firstName;
-
+public class PatientMiniSearchDto {
+     private String firstName;
     private String lastName;
-
     private String phoneNumber;
-
     private Integer uhid;
 
-    private String orderNumber;
-
-    public PatientSearch(String firstName, String lastName, String phoneNumber, Integer uhid, String orderNumber) {
+    public PatientMiniSearchDto(String firstName, String lastName, String phoneNumber, Integer uhid) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.uhid = uhid;
-        this.orderNumber = orderNumber;
     }
 
     public String getFirstName() {
@@ -51,22 +45,13 @@ public class PatientSearch {
         this.uhid = uhid;
     }
 
-    public String getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
-    }
-
     @Override
     public String toString() {
-        return "PatientSearch{" +
+        return "PatientMiniSearchDto{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", uhid=" + uhid +
-                ", orderNumber='" + orderNumber + '\'' +
                 '}';
     }
 }
