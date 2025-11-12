@@ -23,7 +23,7 @@ public class Patient {
 
 	@Column(name="FIRST_NAME")
 	@NotBlank(message = "First name cannot be empty or null.")
-	@Size(min = 1,max = 20 , message = "The lenght of first name should not exceed 20.")
+	@Size(min = 1,max = 20 , message = "The length of first name should not exceed 20.")
 	private String firstName;
 
 	@Column(name="LAST_NAME")
@@ -38,17 +38,17 @@ public class Patient {
 	private Date dateOfBirth;
 
 	@Column(name="GENDER", length = 1)
-	@Size(min = 1, max = 1, message = "The lenght of gender should be 1.")
+	@Size(min = 1, max = 1, message = "The length of gender should be 1.")
 	@NotBlank(message = "Gender cannot be empty or null.")
 	private String gender;
 
 	@Column(name="EMAIL")
-	@Size(max = 40 , message = "The lenght of email should not exceed 40.")
+	@Size(max = 40 , message = "The length of email should not exceed 40.")
 	private String email;
 
 	@Column(name= "PHONE_NUMBER") 
 	@NotBlank(message = "Phone number cannot be empty or null.")
-	@Size(min = 1, max = 10, message = "The lenght of phone number should be 10.")
+	@Size(min = 1, max = 10, message = "The length of phone number should be 10.")
 	private String phoneNumber;
 
 	public Integer getId() {

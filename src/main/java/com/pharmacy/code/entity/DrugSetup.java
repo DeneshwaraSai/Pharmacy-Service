@@ -9,6 +9,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.hibernate.annotations.Formula;
 
 @Entity
 @Table(name = "DRUG_SETUP")
@@ -34,13 +35,13 @@ public class DrugSetup {
 	@NotBlank(message = "HSN Code cannot be empty")
 	private String hsnCode;
 
-	@Transient
+ 	@Formula("(SELECT t.CGST FROM TAX_CATEGORY t WHERE t.CODE = HSN_CODE)")
 	private Float cgst;
 
-	@Transient
-	private Float igst;
+	@Formula("(SELECT t.IGST FROM TAX_CATEGORY t WHERE t.CODE = HSN_CODE)")
+ 	private Float igst;
 
-	@Transient
+	@Formula("(SELECT t.SGST FROM TAX_CATEGORY t WHERE t.CODE = HSN_CODE)")
 	private Float sgst;
 
 	@Column(name = "STATUS", nullable = false, length = 2)

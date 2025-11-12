@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pharmacy.code.entity.TaxCategory;
@@ -12,6 +13,7 @@ import com.pharmacy.code.service.TaxCategoryService;
 
 @CrossOrigin
 @RestController
+@RequestMapping("/api/taxCategory/")
 public class TaxCategoryController {
 	
 	TaxCategoryService taxCategoryService;
@@ -21,9 +23,8 @@ public class TaxCategoryController {
 		this.taxCategoryService = taxCategoryService;
 	}
 	
-	@GetMapping(path = "/taxCategory/list")
+	@GetMapping(path = "v1/list")
 	public List<TaxCategory> findAll() {
 		return taxCategoryService.findAll();
 	}
-	
 }
