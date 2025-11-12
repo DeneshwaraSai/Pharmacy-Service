@@ -3,13 +3,7 @@ package com.pharmacy.code.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.pharmacy.code.dto.SimpleCodeValue;
 import com.pharmacy.code.entity.Supplier;
@@ -17,6 +11,7 @@ import com.pharmacy.code.service.SupplierService;
 
 @CrossOrigin
 @RestController
+@RequestMapping("/api/supplier/")
 public class SupplierController {
 
 	private SupplierService supplierService;
@@ -26,7 +21,7 @@ public class SupplierController {
 		this.supplierService = supplierService;
 	}
 
-	@GetMapping(path = "/supplier/codeValue")
+	@GetMapping(path = "/v1/codeValue")
 	public List<SimpleCodeValue> findSupplierCodeAndName() {
 		try {
 			return supplierService.findSupplierCodeAndName();
@@ -35,8 +30,8 @@ public class SupplierController {
 			throw e;
 		}
 	}
-	
-	@GetMapping(path = "/supplier/supplier-list")
+
+	@GetMapping(path = "/v1/supplier-list")
 	public List<Supplier> findAllSuppliers() {
 		try {
 			return supplierService.findAll();
@@ -45,8 +40,8 @@ public class SupplierController {
 			throw e;
 		}
 	}
-	
-	@PostMapping(path = "/supplier/create")
+
+	@PostMapping(path = "/v1/create")
 	public Supplier save(@RequestBody Supplier supplier) {
 		try {
 			return supplierService.save(supplier);
@@ -56,7 +51,7 @@ public class SupplierController {
 		}
 	}
 
-	@PutMapping(path = "/supplier/update")
+	@PutMapping(path = "/v1/update")
 	public Supplier update(@RequestBody Supplier supplier) {
 		try {
 			return supplierService.update(supplier);
@@ -66,7 +61,7 @@ public class SupplierController {
 		}
 	}
 
-	@GetMapping(path = "/supplier/{id}")
+	@GetMapping(path = "/v1/{id}")
 	public Supplier findSupplierById(@PathVariable(name = "id", required =  true) Integer id) {
 		try {
 			return supplierService.findById(id);
