@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import com.pharmacy.code.dto.PatientMiniSearchDto;
 import com.pharmacy.code.dto.PatientSearch;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -86,10 +87,19 @@ public class PatientServiceImpl implements PatientService {
 
         patientSearch.setFirstName(Objects.isNull(patientSearch.getFirstName()) ? "" : patientSearch.getFirstName());
         patientSearch.setLastName(Objects.isNull(patientSearch.getLastName()) ? "" : patientSearch.getLastName());
+        
+        patientSearch.setEmail(Objects.isNull(patientSearch.getEmail())
+                || StringUtils.isBlank(patientSearch.getEmail()) ? null : patientSearch.getEmail());
 
+        patientSearch.setPhoneNumber(Objects.isNull(patientSearch.getPhoneNumber())
+                || StringUtils.isBlank(patientSearch.getPhoneNumber())
+                ? null : patientSearch.getPhoneNumber());
 
-        patientSearch.setPhoneNumber(Objects.isNull(patientSearch.getPhoneNumber()) ? null : patientSearch.getPhoneNumber());
-        patientSearch.setOrderNumber(Objects.isNull(patientSearch.getOrderNumber()) ? null : patientSearch.getOrderNumber());
+        patientSearch.setOrderNumber(Objects.isNull(patientSearch.getOrderNumber())
+                || StringUtils.isBlank(patientSearch.getOrderNumber())
+                ? null : patientSearch.getOrderNumber());
+
+        patientSearch.setUhid(Objects.isNull(patientSearch.getUhid()) ? null : patientSearch.getUhid());
 
         System.out.println(patientSearch.toString());
 
@@ -98,6 +108,8 @@ public class PatientServiceImpl implements PatientService {
                 .setParameter("firstName", patientSearch.getFirstName())
                 .setParameter("lastName", patientSearch.getLastName())
                 .setParameter("phoneNumber", patientSearch.getPhoneNumber())
+                .setParameter("uhid", patientSearch.getUhid())
+                .setParameter("email", patientSearch.getEmail())
                 .getResultList();
         System.out.println(dtoList.toString());
         return dtoList;
