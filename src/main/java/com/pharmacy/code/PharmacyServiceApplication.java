@@ -8,8 +8,10 @@ import org.springframework.context.annotation.Bean;
 import com.pharmacy.code.service.CodeValueService;
 
 import jakarta.persistence.EntityManager;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
+@EnableScheduling
 public class PharmacyServiceApplication {
 
 	public static void main(String[] args) {

@@ -1,10 +1,7 @@
 package com.pharmacy.code.entity;
 
 import java.util.Date;
-import java.util.UUID;
-
 import jakarta.persistence.*;
-import org.apache.commons.lang3.StringUtils;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
